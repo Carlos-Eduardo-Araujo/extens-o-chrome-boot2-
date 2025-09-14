@@ -2,4 +2,4 @@
 
 Extensão elaborada por Carlos Eduardo de acordo com que o prof Romes passou em suas aulas como parte da disciplina do Bootcamp 2 .
 
-Veja docs/, manifest.json e src/ para o código completo.
+Ela extensão foi desenvolvida no Bootcamp II como prática de criação de extensões para o Google Chrome usando Manifest V3. A extensão possui um popup com um botão que envia mensagem ao background, um service worker que responde ao popup e um content script que destaca links em páginas específicas. Ela utiliza armazenamento local simples com chrome.storage e inclui ícones personalizados. A estrutura do projeto é organizada em pastas: src/ (popup, content, background), icons/ (ícones da extensão), docs/ (landing page para GitHub Pages), manifest.json e README.md. Para instalar manualmente, baixe o repositório como .zip ou clone pelo GitHub, abra o Chrome em chrome://extensions/, ative o modo desenvolvedor, clique em "Carregar sem compactação" e selecione a pasta do projeto. O GitHub Pages está ativo para a pasta /docs e você pode acessar a página do projeto neste link: https://Carlos-Eduardo-Araujo.github.io/extens-o-chrome-boot2-/.
