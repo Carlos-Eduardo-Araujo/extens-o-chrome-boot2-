@@ -1,5 +1,28 @@
-# Bootcamp 2 - Extensão Chrome
+# Entrega II — Containerização + CI (Playwright)
 
-Extensão elaborada por Carlos Eduardo de acordo com que o prof Romes passou em suas aulas como parte da disciplina do Bootcamp 2 .
+Este repositório contém um *scaffold* pronto para executar testes E2E da extensão Chrome (MV3)
+dentro de um container Playwright e via GitHub Actions.
 
-Ela extensão foi desenvolvida no Bootcamp II como prática de criação de extensões para o Google Chrome usando Manifest V3. A extensão possui um popup com um botão que envia mensagem ao background, um service worker que responde ao popup e um content script que destaca links em páginas específicas. Ela utiliza armazenamento local simples com chrome.storage e inclui ícones personalizados. A estrutura do projeto é organizada em pastas: src/ (popup, content, background), icons/ (ícones da extensão), docs/ (landing page para GitHub Pages), manifest.json e README.md. Para instalar manualmente, baixe o repositório como .zip ou clone pelo GitHub, abra o Chrome em chrome://extensions/, ative o modo desenvolvedor, clique em "Carregar sem compactação" e selecione a pasta do projeto. O GitHub Pages está ativo para a pasta /docs e você pode acessar a página do projeto neste link: https://Carlos-Eduardo-Araujo.github.io/extens-o-chrome-boot2-/.
+## O que foi gerado
+- Dockerfile (base Playwright)
+- docker-compose.yml
+- scripts/build-extension.mjs
+- tests/ (Playwright config + spec de exemplo)
+- .github/workflows/ci.yml
+- package.json com scripts úteis
+- manifest.json de exemplo (substitua pelo seu)
+
+## Como usar (local)
+1. Instale dependências: `npm ci`
+2. Build e testes local: `npm test`
+3. Usando Docker Compose:
+   - `docker compose build`
+   - `docker compose run --rm e2e`
+
+## CI (GitHub Actions)
+- O workflow `.github/workflows/ci.yml` executa `npm ci`, instala Playwright, gera `dist/extension.zip` e faz upload do relatório HTML (`playwright-report`) e do `extension-zip` como artefatos.
+
+## Observações
+- Substitua `manifest.json` e a pasta `src/` com os arquivos reais da sua extensão (entrega inicial).
+- Se a sua extensão expõe página de opções ou popup com conteúdo estático, adicione testes que abram `chrome-extension://<id>/popup.html` ou use efeitos do content script para validar comportamento.
+- Commit e publique no repositório informado pelo professor.
