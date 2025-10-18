@@ -6,9 +6,7 @@ const distPath = path.join(__dirname, '..', 'dist');
 export default defineConfig({
   testDir: __dirname,
   reporter: [['list'], ['html', { outputFolder: 'playwright-report' }]],
-  use: {
-    headless: true,
-  },
+  use: { headless: true },
   projects: [
     {
       name: 'chromium-with-extension',
