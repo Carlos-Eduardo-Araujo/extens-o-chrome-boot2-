@@ -13,7 +13,7 @@ test('content script effect on example.com', async () => {
   });
   const [page] = context.pages();
   await page.goto('https://example.com', { waitUntil: 'domcontentloaded' });
-  // Example assertion: page loads and has a link element
+ 
   const linkCount = await page.locator('a').count();
   expect(linkCount).toBeGreaterThan(0);
   await context.close();
