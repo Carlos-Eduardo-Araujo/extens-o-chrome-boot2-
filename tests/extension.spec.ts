@@ -12,15 +12,8 @@ test('popup carrega e exibe UI', async () => {
     ]
   });
   const [page] = context.pages();
-<<<<<<< HEAD
-  await page.goto('https://example.com', { waitUntil: 'domcontentloaded' });
- 
-  const linkCount = await page.locator('a').count();
-  expect(linkCount).toBeGreaterThan(0);
-=======
   await page.goto('https://example.com');
   const outline = await page.evaluate(() => getComputedStyle(document.querySelector('a')).outlineStyle);
   expect(outline).toBeDefined();
->>>>>>> e9352a6 (update arquivos)
   await context.close();
 });
