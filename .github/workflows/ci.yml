@@ -11,35 +11,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout codigo
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
-      - name: Instalar dependências (ignora integridade)
-        run: |
-          npm set registry https://registry.npmmirror.com
-          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+      - name: Instalar dependencias
+        run: npm ci || npm install --legacy-peer-deps
 
-      - name: Instalar Playwright
+      - name: Instalar Playwright e Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Build da extensão
+      - name: Build extensao
         run: npm run build
 
       - name: Executar testes E2E
-        run: npm run test:e2e || echo "⚠️ Testes E2E falharam, verifique logs."
+        run: npm run test:e2e || npm run test:e2e -- --reporter=html
 
-      - name: Publicar relatório HTML do Playwright
+      - name: Publicar relatorio HTML do Playwright
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright-report
 
-      - name: Publicar extensão ZIP
-        if: always()
+      - name: Publicar extensao ZIP
         uses: actions/upload-artifact@v4
         with:
           name: extension-zip
