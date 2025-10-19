@@ -23,7 +23,8 @@ jobs:
         run: npm run build || echo "Build concluído"
 
       - name: Save extension zip
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
+
         with:
           name: extension-zip
           path: dist/
