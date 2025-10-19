@@ -1,26 +1,16 @@
 {
-  "manifest_version": 3,
-  "name": "Minha Extensão (Exemplo)",
+  "name": "my-chrome-extension",
   "version": "1.0.0",
-  "description": "Manifest placeholder — substitua pelo seu manifest real da Entrega I.",
-  "action": {
-    "default_popup": "src/popup/popup.html"
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-extension.mjs",
+    "test:e2e": "playwright test --reporter=list,html",
+    "test": "npm run build && npm run test:e2e",
+    "ci": "npm ci && npm run test"
   },
-  "permissions": [
-    "storage"
-  ],
-  "background": {
-    "service_worker": "src/background/background.js"
-  },
-  "icons": {
-    "16": "icons/icon16.png",
-    "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["src/content/content.js"]
-    }
-  ]
+  "devDependencies": {
+    "@playwright/test": "^1.46.0",
+    "archiver": "^7.0.0"
+  }
 }
+
