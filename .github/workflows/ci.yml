@@ -14,15 +14,18 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'npm'
 
-      - name: Limpar cache do npm
+      - name: Forçar limpeza e reinstalação global
         run: |
+          rm -rf ~/.npm
           npm cache clean --force
+          npm install --global npm@latest
+          npm config set registry https://registry.npmmirror.com
 
       - name: Instalar dependências
-        run: |
-          npm install --legacy-peer-deps
+        run: npm install --force
 
       - name: Build extensão
         run: npm run build || echo "Build concluído"
