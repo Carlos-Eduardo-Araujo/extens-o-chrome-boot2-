@@ -10,17 +10,17 @@ fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(dist);
 
 if (!fs.existsSync('manifest.json')) {
-  console.error('❌ ERRO: manifest.json não encontrado na raiz do projeto!');
+  console.error(' ERRO: manifest.json não encontrado na raiz do projeto!');
   process.exit(1);
 }
 
 if (!fs.existsSync('src')) {
-  console.warn('⚠️ Pasta src/ não encontrada. Criando vazia...');
+  console.warn(' Pasta src/ não encontrada. Criando vazia...');
   fs.mkdirSync('src');
 }
 
 if (!fs.existsSync('icons')) {
-  console.warn('⚠️ Pasta icons/ não encontrada. Criando vazia...');
+  console.warn(' Pasta icons/ não encontrada. Criando vazia...');
   fs.mkdirSync('icons');
 }
 
@@ -34,4 +34,4 @@ archive.directory(dist, false);
 archive.pipe(output);
 await archive.finalize();
 
-console.log('✅ Build gerado em dist/extension.zip');
+console.log(' Build gerado em dist/extension.zip');
