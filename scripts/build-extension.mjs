@@ -2,12 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import archiver from 'archiver';
 
-const dist = 'dist';
+fs.mkdirSync('dist', { recursive: true });
 
+const dist = 'dist';
 
 fs.rmSync(dist, { recursive: true, force: true });
 fs.mkdirSync(dist);
-
 
 if (!fs.existsSync('manifest.json')) {
   console.error('❌ ERRO: manifest.json não encontrado na raiz do projeto!');
@@ -24,11 +24,9 @@ if (!fs.existsSync('icons')) {
   fs.mkdirSync('icons');
 }
 
-
 fs.copyFileSync('manifest.json', path.join(dist, 'manifest.json'));
 fs.cpSync('src', path.join(dist, 'src'), { recursive: true });
 fs.cpSync('icons', path.join(dist, 'icons'), { recursive: true });
-
 
 const output = fs.createWriteStream(path.join(dist, 'extension.zip'));
 const archive = archiver('zip', { zlib: { level: 9 } });
@@ -37,4 +35,3 @@ archive.pipe(output);
 await archive.finalize();
 
 console.log('✅ Build gerado em dist/extension.zip');
-
