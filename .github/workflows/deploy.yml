@@ -14,49 +14,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    environment:
-      name: github-pages
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload PWA
+        uses: actions/upload-pages-artifact@v3
         with:
-          node-version: 20
+          path: apps/web
 
-      - name: Install Dependencies
-        run: |
-          cd apps/web
-          npm install
-
-      - name: Build Project
-        run: |
-          cd apps/web
-          npm run build
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages
-          path: apps/web/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: ./dist
-
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: actions/deploy-pages@v4
