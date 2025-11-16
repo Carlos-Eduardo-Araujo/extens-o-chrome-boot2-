@@ -1,45 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bootcamp PWA</title>
 
-  <title>Meu PWA Bootcamp</title>
+    <!-- Manifest do PWA -->
+    <link rel="manifest" href="manifest.webmanifest" />
 
-  <link rel="manifest" href="./manifest.webmanifest">
-  <meta name="theme-color" content="#6a0dad">
-
-  <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      padding: 40px;
-      background: #f0f0f0;
-    }
-    h1 { color: #6a0dad; }
-    button {
-      padding: 12px 20px;
-      border: none;
-      background: #6a0dad;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    #api-response { margin-top: 20px; font-weight: bold; }
-  </style>
+    <!-- Estilo simples -->
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .card { border: 1px solid #ccc; padding: 15px; margin-top: 15px; border-radius: 8px; }
+    </style>
 </head>
-
 <body>
-  <h1>PWA Bootcamp 🚀</h1>
 
-  <p>Aplicativo PWA conectado ao backend via Docker.</p>
+    <h1>⭐ Bootcamp PWA</h1>
+    <p>API Test + Offline Fallback</p>
 
-  <button id="btn">Chamar API</button>
+    <button onclick="carregarDados()">Carregar API</button>
 
-  <div id="api-response" data-testid="api-ok"></div>
+    <div id="resultado" class="card">Clique no botão para iniciar</div>
 
-  <script src="./main.js"></script>
+    <script>
+        async function carregarDados() {
+            const display = document.getElementById("resultado");
+            
+            try {
+                const response = await fetch("http://localhost:3000/api/hello");
+                
+                if (!response.ok) throw new Error("Erro na API");
+
+                const json = await response.json();
+                display.innerHTML = `<strong>API:</strong> ${json.msg}`;
+
+                
+                localStorage.setItem("cache_api", json.msg);
+
+            } catch (error) {
+                const cache = localStorage.getItem("cache_api");
+
+                display.innerHTML = cache
+                    ? `<strong>Offline:</strong> Último valor salvo → ${cache}`
+                    : `<strong>Offline:</strong> API indisponível`;
+            }
+        }
+
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/service-worker.js")
+        }
+    </script>
+
 </body>
 </html>
-
