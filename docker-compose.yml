@@ -1,11 +1,14 @@
 services:
-  e2e:
-    build: .
-    image: bootcamp/ext-e2e:latest
-    environment:
-      - CI=true
-    volumes:
-      - ./:/app
-    working_dir: /app
-    command: npm run test:e2e
-    shm_size: 2gb
+  api:
+    build: ./apps/api
+    ports:
+      - "3000:3000"
+    container_name: bootcamp-api
+
+  web:
+    build: ./apps/web
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    container_name: bootcamp-web
