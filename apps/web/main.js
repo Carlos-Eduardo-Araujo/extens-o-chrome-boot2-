@@ -11,7 +11,9 @@ document.getElementById("btn").addEventListener("click", async () => {
 
   try {
     
-    const res = await fetch("http://localhost:3000/api/hello");
+    const API = "http://localhost:3000/api/hello";
+    const res = await fetch(API);
+
     const data = await res.json();
 
     div.textContent = "API respondeu: " + data.msg;
