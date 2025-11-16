@@ -1,28 +1,20 @@
-# Entrega II — Containerização + CI (Playwright)
+# Entrega Final — Bootcamp 2
 
-Este repositório contém um *scaffold* pronto para executar testes E2E da extensão Chrome (MV3)
-dentro de um container Playwright e via GitHub Actions.
+Este repositório apresenta a Entrega Final do Bootcamp II, na qual uma extensão do Chrome desenvolvida previamente foi transformada em um Progressive Web App (PWA) completo. Além disso, o projeto inclui a implementação de uma API em Node.js, containerização com Docker, testes automatizados e um pipeline estruturado de Integração Contínua e Entrega Contínua (CI/CD) utilizando GitHub Actions.
 
-## O que foi gerado
-- Dockerfile (base Playwright)
-- docker-compose.yml
-- scripts/build-extension.mjs
-- tests/ (Playwright config + spec de exemplo)
-- .github/workflows/ci.yml
-- package.json com scripts úteis
-- manifest.json de exemplo (substitua pelo seu)
+O PWA foi construído seguindo os padrões atuais da Web, oferecendo uma experiência semelhante à de um aplicativo nativo. Para isso, foram incorporados elementos essenciais, como o arquivo manifest.webmanifest, responsável por configurar o nome, o ícone e o comportamento do aplicativo quando instalado, além de um service worker que permite funcionalidades offline e otimizações de cache. A aplicação também foi preparada para atender aos requisitos do Lighthouse, garantindo bom desempenho, acessibilidade e usabilidade.
 
-## Como usar (local)
-1. Instale dependências: `npm ci`
-2. Build e testes local: `npm test`
-3. Usando Docker Compose:
-   - `docker compose build`
-   - `docker compose run --rm e2e`
+A camada de backend foi desenvolvida com Express.js, oferecendo um endpoint simples que possibilita testar a comunicação entre o front-end e a API. Esse componente faz parte da arquitetura mínima necessária para validar a integração entre os serviços e demonstrar o funcionamento completo da proposta do projeto.
 
-## CI (GitHub Actions)
-- O workflow `.github/workflows/ci.yml` executa `npm ci`, instala Playwright, gera `dist/extension.zip` e faz upload do relatório HTML (`playwright-report`) e do `extension-zip` como artefatos.
+Ambos os serviços — PWA e API — foram containerizados individualmente e executados em conjunto por meio do Docker Compose, o que facilita a reprodução do ambiente em qualquer máquina. Com apenas um comando, o usuário é capaz de subir toda a aplicação de forma consistente, simplificando o processo de desenvolvimento e avaliação.
 
-## Observações
-- Substitua `manifest.json` e a pasta `src/` com os arquivos reais da sua extensão (entrega inicial).
-- Se a sua extensão expõe página de opções ou popup com conteúdo estático, adicione testes que abram `chrome-extension://<id>/popup.html` ou use efeitos do content script para validar comportamento.
-- Commit e publique no repositório informado pelo professor.
+O projeto também inclui testes end-to-end utilizando Playwright, responsáveis por validar o fluxo básico da aplicação, garantindo que o PWA carregue corretamente e se comunique com a API. Esses testes podem ser executados tanto localmente quanto automaticamente dentro da pipeline de CI/CD.
+
+O fluxo de automação foi configurado com dois arquivos principais do GitHub Actions:
+
+   O ci.yml, responsável por instalar dependências, realizar builds, executar testes e gerar artefatos;
+   O deploy.yml, responsável por publicar o PWA automaticamente no GitHub Pages.
+
+Dessa forma, o aplicativo é disponibilizado de forma pública, com suporte a HTTPS e pronto para ser instalado como um app em dispositivos compatíveis.
+
+Concluindo, o projeto cumpre integralmente os requisitos da entrega: desenvolvimento de um PWA funcional, integração com API, uso de containers, execução de testes automáticos, publicação via CI/CD e documentação clara do processo. Trata-se de um trabalho acadêmico que demonstra, de forma prática, o ciclo completo de desenvolvimento e entrega moderna de aplicações Web.
