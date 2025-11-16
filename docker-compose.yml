@@ -9,6 +9,6 @@ services:
     build: ./apps/web
     ports:
       - "8080:80"
+    container_name: bootcamp-web
     depends_on:
       - api
-    container_name: bootcamp-web
